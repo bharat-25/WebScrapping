@@ -1,5 +1,5 @@
-import { WebScrapeDto } from './dto/web-scraping.dto';
-import { WebScrapingService } from './web-scraping.service';
+import { WebScrapeDto } from "./dto/web-scraping.dto";
+import { WebScrapingService } from "./web-scraping.service";
 export declare class WebScrapingController {
     private readonly webScrapingService;
     constructor(webScrapingService: WebScrapingService);

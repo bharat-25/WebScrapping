@@ -8,12 +8,13 @@ import { WEB_SCRAPING_RESPONSE } from 'src/common/response';
 export class WebScrapingService {
     async scrapeData(webScrapeDto:WebScrapeDto) {
         try {
-
+          
           const response = await axios.get(webScrapeDto.url);
           const $ = cheerio.load(response.data);
-          const data: any = [];
+          const data: string[] = [];
+
           $(webScrapeDto.htmlTag).each((index, element) => {
-            const tagData = $(element).attr(webScrapeDto.attributeName);
+            const tagData = $(element).attr(webScrapeDto.attributeName) || $(element).text();
            
             if(tagData){
                 data.push(tagData);
@@ -22,8 +23,7 @@ export class WebScrapingService {
         return data
         } catch (error) {
           if (axios.isAxiosError(error)) {
-
-            console.log('Axios Error')
+            console.log('Axios Error') 
             throw new Error(WEB_SCRAPING_RESPONSE.INVALID_URL);
           }
           else{
